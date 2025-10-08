@@ -1,54 +1,13 @@
 {% extends 'base.html' %}
 {% load crispy_forms_tags %}
-
 {% block content %}
-<div class="container mt-4">
-  <div class="row justify-content-center">
-    <div class="col-lg-10">
-      <div class="card shadow-sm">
-        <div class="card-body p-4 p-lg-5">
-          <div class="d-flex justify-content-between align-items-center mb-4">
-            <h3 class="mb-0">{% if object %}Edit Sale{% else %}Create New Sale{% endif %}</h3>
-            <a href="{% url 'sale_list' %}" class="btn btn-outline-secondary">Back to Sales</a>
-          </div>
-
-          <form method="post" novalidate>
-            {% csrf_token %}
-            <div class="row g-3">
-              <div class="col-md-6">
-                {{ form.customer|as_crispy_field }}
-              </div>
-              <div class="col-md-6">
-                {{ form.sales_agent|as_crispy_field }}
-              </div>
-              <div class="col-md-4">
-                {{ form.total_amount|as_crispy_field }}
-              </div>
-              <div class="col-md-4">
-                {{ form.final_amount_paid|as_crispy_field }}
-              </div>
-              <div class="col-md-4">
-                {{ form.payment_type|as_crispy_field }}
-              </div>
-              <div class="col-md-6">
-                {{ form.transport_included|as_crispy_field }}
-              </div>
-              <div class="col-md-6">
-                {{ form.transport_charge|as_crispy_field }}
-              </div>
-              <div class="col-md-6">
-                {{ form.receipt_number|as_crispy_field }}
-              </div>
-            </div>
-
-            <div class="d-flex justify-content-end mt-4">
-              <a href="{% url 'sale_list' %}" class="btn btn-light me-2">Cancel</a>
-              <button type="submit" class="btn btn-primary">{% if object %}Update Sale{% else %}Create Sale{% endif %}</button>
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
-  </div>
+<div class="container mt-4" style="max-width: 600px;">
+    <h2>Edit Sale</h2>
+    <form method="post" novalidate>
+        {% csrf_token %}
+        {{ form | crispy }}
+        <button type="submit" class="btn btn-warning mt-3">Update</button>
+        <a href="{% url 'sale_list' %}" class="btn btn-secondary mt-3">Cancel</a>
+    </form>
 </div>
 {% endblock %}

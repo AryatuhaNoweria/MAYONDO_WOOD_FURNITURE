@@ -1,5 +1,5 @@
 from django import forms
-from django.contrib.auth.forms import UserCreationForm, UserChangeForm
+from django.contrib.auth.forms import UserCreationForm, UserChangeForm,AuthenticationForm
 from .models import User
 
 
@@ -26,3 +26,8 @@ class CustomUserChangeForm(UserChangeForm):
             "username":{"required":"please enter the username"},
             "email":{"required":"please enter the valid email"},
          }
+
+class Userloginform(AuthenticationForm):
+    error_messages={
+        "invalid_login":"please enter correct credentials"
+    }

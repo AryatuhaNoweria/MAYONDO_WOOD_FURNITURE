@@ -4,7 +4,7 @@ from .forms import SupplierForm
 
 def supplier_list(request):
     suppliers = Supplier.objects.all()
-    return render(request, 'supplier_list.html', {'suppliers': suppliers})
+    return render(request, 'suppliers_list.html', {'supplier': suppliers})
 
 
 def supplier_detail(request, pk):
