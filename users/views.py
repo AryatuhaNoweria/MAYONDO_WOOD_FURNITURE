@@ -2,6 +2,13 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.views import LoginView,LogoutView
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
+from django.db.models import Sum, Count
+from datetime import timedelta
+from django.utils import timezone
+from sales.models import Sale, SaleItem
+from stock.models import StockEntry
+from products.models import Product
+from customers.models import Customer
 #from django.contrib.auth.decorators import login_required
 from .forms import CustomUserCreationForm,Userloginform
 
@@ -39,29 +46,6 @@ def login_view(request):
         form = Userloginform()
     context ={'form':form}
     return render(request,'login.html', context)
-    
-                
-                    
-
-
-    #     username = request.POST['username']
-    #     password = request.POST['password']
-    #     user = authenticate(request, username=username, password=password)
-    #     if user is not None:
-    #         login(request, user)
-    #         # Redirect based on role
-    #         role = user.profile.role  # assumes Profile exists
-    #         if role == 'manager':
-    #             return redirect('manager_dashboard')
-    #         elif role == 'sales_agent':
-    #             return redirect('sales_dashboard')
-    #         elif role == 'attendant':
-    #             return redirect('attendant_dashboard')
-    #         else:
-    #             return redirect('home')  # fallback
-    #     else:
-    #         messages.error(request, "Invalid username or password")
-    # return render(request, 'login.html')
 
 def logout_view(request):
     logout(request)
@@ -69,7 +53,37 @@ def logout_view(request):
 
 
 def manager_dashboard(request):
-    return render(request, 'manager_dashboard.html')
+    now = timezone.now()
+    start_of_month = now.replace(day=1, hour=0, minute=0, second=0, microsecond=0)
+
+    total_revenue = Sale.objects.filter(date__gte=start_of_month).aggregate(
+        total=Sum('final_amount_paid')
+    )['total'] or 0
+
+    total_sales = Sale.objects.filter(date__gte=start_of_month).count()
+    total_customers = Customer.objects.count()
+    total_products = Product.objects.count()
+
+    recent_sales = Sale.objects.select_related('customer').order_by('-date')[:5]
+
+    low_stock = Product.objects.filter(current_stock__lte=5).order_by('current_stock')[:5]
+
+    top_products = (
+        SaleItem.objects.values('product__name')
+        .annotate(quantity_sold=Sum('quantity'))
+        .order_by('-quantity_sold')[:5]
+    )
+
+    context = {
+        'kpi_total_revenue': total_revenue,
+        'kpi_total_sales': total_sales,
+        'kpi_total_customers': total_customers,
+        'kpi_total_products': total_products,
+        'recent_sales': recent_sales,
+        'low_stock': low_stock,
+        'top_products': top_products,
+    }
+    return render(request, 'manager_dashboard.html', context)
 
 def attendant_dashboard(request):
     return render(request, 'attendant_dashboard.html')
