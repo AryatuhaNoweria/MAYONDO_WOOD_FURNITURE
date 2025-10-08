@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+  <h2>Stock Details</h2>
+  <table class="table table-bordered">
+    <tr><th>Name</th><td>{{ stock.name }}</td></tr>
+    <tr><th>Type</th><td>{{ stock.get_product_type_display }}</td></tr>
+    <tr><th>Supplier</th><td>{{ stock.supplier_name }}</td></tr>
+    <tr><th>Quantity</th><td>{{ stock.quantity }}</td></tr>
+    <tr><th>Cost Price</th><td>{{ stock.cost_price }}</td></tr>
+    <tr><th>Selling Price</th><td>{{ stock.selling_price }}</td></tr>
+    <tr><th>Date Added</th><td>{{ stock.date_added }}</td></tr>
+    <tr><th>Quality</th><td>{{ stock.quality }}</td></tr>
+    <tr><th>Color</th><td>{{ stock.color }}</td></tr>
+    <tr><th>Measurements</th><td>{{ stock.measurements }}</td></tr>
+  </table>
+
+  <a href="{% url 'edit_stock' stock.pk %}" class="btn btn-warning">Edit</a>
+  <a href="{% url 'stock_list' %}" class="btn btn-secondary">Back to List</a>
+</div>
+{% endblock %}

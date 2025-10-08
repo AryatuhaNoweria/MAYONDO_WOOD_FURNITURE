@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Welcome | Mayondo Wood Furniture{% endblock %}
+
+{% block content %}
+<style>
+    .landing-hero {
+        position: relative;
+        min-height: calc(100vh - 72px);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        color: #fff;
+        background: url('{% static "images/landing-bg.jpg" %}') center/cover no-repeat fixed;
+    }
+    .landing-overlay {
+        position: absolute;
+        inset: 0;
+        background: rgba(0,0,0,0.45);
+    }
+    .landing-content { position: relative; z-index: 1; }
+</style>
+
+<div class="landing-hero">
+    <div class="landing-overlay"></div>
+    <div class="landing-content container">
+        <h1 class="display-4 fw-bold">Welcome to Mayondo Wood  and Furniture</h1>
+        <p class="lead mt-3">Handcrafted quality furniture for your home and office.</p>
+        <div class="mt-4">
+            <a href="{% url 'login' %}" class="btn btn-success btn-lg mx-2">Get started</a>
+
+        </div>
+    </div>
+</div>
+
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
+            <img src="{% static 'images/landing-feature.jpg' %}" class="img-fluid rounded shadow" alt="Featured Mayondo furniture"/>
+        </div>
+    </div>
+    <div class="text-center text-muted small mt-3">Discover our latest handcrafted pieces</div>
+    </div>
+{% endblock %}
+

@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block content %}
+<style>
+  
+</style>
+
+<div class="logout-container">
+  <div class="logout-card">
+    <div class="logout-icon">👋</div>
+    <h3 class="brand-title">You’ve been logged out</h3>
+    <p class="sub-text">Thank you for using <strong>Mayondo Wood & Furniture System</strong>.</p>
+    <a href="{% url 'login' %}" class="btn btn-login w-100 py-2">Login Again</a>
+  </div>
+</div>
+{% endblock %}

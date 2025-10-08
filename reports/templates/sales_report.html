@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<h2>Sales Report</h2>
+
+<form method="get">
+    {% crispy  | form %}
+</form>
+
+{% if sales %}
+<table class="table table-striped mt-4">
+    <thead>
+        <tr>
+            <th>Date</th>
+            <th>Customer</th>
+            <th>Product</th>
+            <th>Quantity</th>
+            <th>Total Price</th>
+            <th>Transport Included</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for sale in sales %}
+        <tr>
+            <td>{{ sale.date }}</td>
+            <td>{{ sale.customer_name }}</td>
+            <td>{{ sale.product.name }}</td>
+            <td>{{ sale.quantity }}</td>
+            <td>{{ sale.total_price }}</td>
+            <td>{{ sale.transport_included|yesno:"Yes,No" }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<div class="mt-3">
+    <p><strong>Total Sales:</strong> {{ total_sales }}</p>
+    <p><strong>Total Items Sold:</strong> {{ total_items_sold }}</p>
+    <p><strong>Transport Revenue:</strong> {{ transport_revenue }}</p>
+</div>
+{% endif %}
+
+{% endblock %}

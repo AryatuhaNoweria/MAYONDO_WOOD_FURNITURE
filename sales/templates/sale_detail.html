@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2>Sale Details</h2>
+  <table class="table table-bordered">
+    <tr>
+      <th>Customer Name</th>
+      <td>{{ sale.customer_name }}</td>
+    </tr>
+    <tr>
+      <th>Product</th>
+      <td>{{ sale.product.name }}</td>
+    </tr>
+    <tr>
+      <th>Quantity</th>
+      <td>{{ sale.quantity }}</td>
+    </tr>
+    <tr>
+      <th>Date</th>
+      <td>{{ sale.date }}</td>
+    </tr>
+    <tr>
+      <th>Payment Type</th>
+      <td>{{ sale.get_payment_type_display }}</td>
+    </tr>
+    <tr>
+      <th>Sales Agent</th>
+      <td>{{ sale.sales_agent_name }}</td>
+    </tr>
+    <tr>
+      <th>Transport Included</th>
+      <td>{% if sale.transport_included %}Yes{% else %}No{% endif %}</td>
+    </tr>
+    <tr>
+      <th>Total Price</th>
+      <td>{{ sale.total_price }}</td>
+    </tr>
+  </table>
+
+  <a href="{% url 'edit_sale' sale.pk %}" class="btn btn-warning">Edit</a>
+  <a href="{% url 'sale_list' %}" class="btn btn-secondary">Back to List</a>
+{% endblock %}

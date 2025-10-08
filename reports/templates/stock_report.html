@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<h2>Stock Report</h2>
+
+<form method="post">
+    {% csrf_token %}
+    {% crispy |form %}
+</form>
+
+<table class="table table-bordered mt-4">
+    <thead>
+        <tr>
+            <th>Date Added</th>
+            <th>Product Name</th>
+            <th>Type</th>
+            <th>Quantity</th>
+            <th>Cost Price</th>
+            <th>Product Price</th>
+            <th>Supplier</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for stock in stocks %}
+        <tr>
+            <td>{{ stock.date }}</td>
+            <td>{{ stock.name }}</td>
+            <td>{{ stock.type }}</td>
+            <td>{{ stock.quantity }}</td>
+            <td>{{ stock.cost_price }}</td>
+            <td>{{ stock.product_price }}</td>
+            <td>{{ stock.supplier_name }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% if notes %}
+<div class="alert alert-info mt-3">
+    <strong>Report Notes:</strong><br>
+    {{ notes }}
+</div>
+{% endif %}
+
+{% endblock %}

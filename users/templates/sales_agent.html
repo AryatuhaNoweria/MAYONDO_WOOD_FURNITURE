@@ -1,0 +1,109 @@
+{% extends 'base.html' %}
+{% block content %}
+<style>
+  .sales-dashboard {
+    background: linear-gradient(135deg, #f3e5ab, #fff8e7);
+    min-height: 100vh;
+    padding: 40px 0;
+  }
+
+  .sales-card {
+    background: #fff;
+    border-radius: 20px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+    padding: 30px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .sales-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+  }
+
+  .sales-header {
+    text-align: center;
+    margin-bottom: 30px;
+  }
+
+  .sales-header h2 {
+    font-weight: 700;
+    color: #4e342e;
+  }
+
+  .sales-header p {
+    color: #6c757d;
+  }
+
+  .btn-sales {
+    background-color: #8d6e63;
+    color: white;
+    font-weight: 600;
+    border-radius: 10px;
+    transition: background-color 0.3s ease;
+  }
+
+  .btn-sales:hover {
+    background-color: #6d4c41;
+  }
+
+  .stat-card {
+    border-radius: 15px;
+    background-color: #f5f5f5;
+    padding: 20px;
+    text-align: center;
+  }
+
+  .stat-card h4 {
+    color: #5d4037;
+    font-weight: 700;
+  }
+
+  .stat-card p {
+    color: #6c757d;
+    margin: 0;
+  }
+</style>
+
+<div class="sales-dashboard">
+  <div class="container">
+    <div class="sales-header">
+      <h2>Welcome, {{ request.user.username }} (Sales Agent)</h2>
+      <p>Manage and track all your sales efficiently.</p>
+    </div>
+
+    <div class="row mb-4">
+      <div class="col-md-4 mb-3">
+        <div class="stat-card">
+          <h4>₵1,200,000</h4>
+          <p>Today's Total Sales</p>
+        </div>
+      </div>
+      <div class="col-md-4 mb-3">
+        <div class="stat-card">
+          <h4>45</h4>
+          <p>Products Sold</p>
+        </div>
+      </div>
+      <div class="col-md-4 mb-3">
+        <div class="stat-card">
+          <h4>₵25,000</h4>
+          <p>Average Sale Value</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="row text-center">
+      <div class="col-md-6 mb-3">
+        <a href="{% url 'add_sale' %}" class="btn btn-sales w-100 py-3">➕ Add New Sale</a>
+      </div>
+      <div class="col-md-6 mb-3">
+        <a href="{% url 'view_sales' %}" class="btn btn-sales w-100 py-3">📊 View Sales Records</a>
+      </div>
+    </div>
+
+    <div class="text-center mt-4">
+      <a href="{% url 'logout' %}" class="btn btn-danger px-4 py-2">Logout</a>
+    </div>
+  </div>
+</div>
+{% endblock %}

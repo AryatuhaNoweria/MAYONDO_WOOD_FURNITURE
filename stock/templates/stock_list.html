@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container mt-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="mb-0">Stock</h2>
+        <a href="{% url 'add_stock' %}" class="btn btn-success">Add Stock</a>
+    </div>
+
+    {% if stock %}
+    <div class="card shadow-sm">
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-hover align-middle mb-0">
+                    <thead class="table-light">
+                        <tr>
+                            <th scope="col">Product</th>
+                            <th scope="col" class="text-center">Quantity</th>
+                            <th scope="col" class="text-end">Cost Price</th>
+                            <th scope="col" class="text-end">Selling Price</th>
+                            <th scope="col">Date Received</th>
+                            <th scope="col" class="text-end">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in stock %}
+                        <tr>
+                            <td>{{ item.product.name }}</td>
+                            <td class="text-center">{{ item.quantity }}</td>
+                            <td class="text-end">{{ item.cost_price }}</td>
+                            <td class="text-end">{{ item.product_price }}</td>
+                            <td>{{ item.date_received|date:"Y-m-d" }}</td>
+                            <td class="text-end">
+                                <a href="{% url 'edit_stock' item.id %}" class="btn btn-sm btn-outline-primary">Edit</a>
+                                <a href="{% url 'delete_stock' item.id %}" class="btn btn-sm btn-outline-danger ms-1">Delete</a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    {% else %}
+    <div class="text-center text-muted py-5">
+        <p class="mb-3">No stock entries found.</p>
+        <a href="{% url 'add_stock' %}" class="btn btn-success">Add your first stock</a>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

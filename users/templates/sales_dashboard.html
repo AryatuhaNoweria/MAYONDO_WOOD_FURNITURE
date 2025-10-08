@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-5">
+  <div class="p-4 mb-4 bg-success text-white rounded">
+    <h2>Sales Dashboard</h2>
+    <p>Welcome, {{ user.username }}. Start tracking and recording sales here.</p>
+  </div>
+
+  <div class="row g-3">
+    <div class="col-md-6">
+      <a href="{% url 'record_sale' %}" class="btn btn-primary w-100 py-3">Record Sale</a>
+    </div>
+    <div class="col-md-6">
+      <a href="{% url 'view_sales' %}" class="btn btn-outline-light bg-dark text-white w-100 py-3">View Sales</a>
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-5">
+  <div class="p-4 mb-4 bg-warning text-dark rounded">
+    <h2>Attendant Dashboard</h2>
+    <p>Hello {{ user.username }}. Use this space to manage daily tasks.</p>
+  </div>
+
+  <div class="row g-3">
+    <div class="col-md-6">
+      <a href="{% url 'update_stock' %}" class="btn btn-outline-primary w-100 py-3">Update Stock</a>
+    </div>
+    <div class="col-md-6">
+      <a href="{% url 'view_stock' %}" class="btn btn-outline-dark w-100 py-3">View Available Stock</a>
+    </div>
+  </div>
+</div>
+{% endblock %}

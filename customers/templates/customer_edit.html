@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="container mt-5" style="max-width: 600px;">
+    <h2 class="mb-4 text-center">Edit Customer</h2>
+
+    <form method="post" novalidate>
+        {% csrf_token %}
+        {{ form | crispy }}
+
+        <div class="text-center mt-4">
+            <button type="submit" class="btn btn-primary">Update Customer</button>
+            <a href="{% url 'customer_list' %}" class="btn btn-secondary">Cancel</a>
+        </div>
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+  <div class="container mt-4">
+    <h2>
+      {% if stock %}Edit Stock Item{% else %}Add New Stock Item{% endif %}
+    </h2>
+
+    <form method="post" novalidate>
+      {% csrf_token %}
+      {{ form | crispy }}
+      
+      <button type="submit" class="btn btn-primary">
+        {% if stock %}Update{% else %}Add Stock{% endif %}
+      </button>
+      <a href="{% url 'stock_list' %}" class="btn btn-secondary">Cancel</a>
+    </form>
+  </div>
+{% endblock %}
