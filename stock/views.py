@@ -36,4 +36,4 @@ def delete_stock(request, pk):
         stock.delete()
         messages.success(request, 'Stock deleted successfully!')
         return redirect('stock_list')
-    return render(request, 'delete_stock.html', {'stock': stock})
+    return render(request, 'stock_confirm_delete.html', {'stock': stock})

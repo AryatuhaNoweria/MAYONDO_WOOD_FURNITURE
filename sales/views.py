@@ -46,4 +46,4 @@ def delete_sale(request, pk):
         sale.delete()
         messages.success(request, "Sale deleted successfully!")
         return redirect('sale_list')
-    return render(request, 'delete_sale.html', {'sale': sale})
+    return render(request, 'sale_confirm_delete.html', {'sale': sale})

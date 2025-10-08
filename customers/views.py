@@ -39,8 +39,7 @@ def customer_update(request, pk):
     else:
         form = CustomerForm(instance=customer)
 
-    return render(request, 'customer_form.html', {'form': form,'customer': customer  # Important: So template knows it's an "edit"
-})
+    return render(request, 'customer_form.html', {'form': form, 'customer': customer})  # Important: So template knows it's an "edit"
 
 
 # DELETE a customer

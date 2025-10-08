@@ -1,11 +1,12 @@
 {% extends 'base.html' %}
+{% load crispy_forms_tags %}
 
 {% block content %}
 <div class="container mt-4">
   <h2>Delete Stock Item</h2>
   <p>Are you sure you want to delete <strong>{{ stock.name }}</strong>?</p>
 
-  <form method="post">
+  <form method="post"novalidate>
     {% csrf_token %}
     <button type="submit" class="btn btn-danger">Yes, delete</button>
     <a href="{% url 'stock_list' %}" class="btn btn-secondary">Cancel</a>

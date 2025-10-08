@@ -1,0 +1,42 @@
+/* Hide navbar only on landing page */
+    .navbar { display: none !important; }
+    body { padding-top: 0 !important; }
+    .landing-hero {
+        position: relative;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center
+        color: #fff;
+    }
+    .landing-overlay {
+        position: absolute;
+        inset: 0;
+        background: rgba(0,0,0,0.4);
+    }
+    .landing-content { position: relative; z-index: 1; }
+    .footer {
+        background: #2c3e50;
+        color: #ecf0f1;
+        padding: 3rem 0 2rem;
+        margin-top: 0;
+    }
+    .footer h5 {
+        color: #3498db;
+        margin-bottom: 1rem;
+    }
+    .footer a {
+        color: #bdc3c7;
+        text-decoration: none;
+        transition: color 0.3s ease;
+    }
+    .footer a:hover {
+        color: #3498db;
+    }
+    .footer-bottom {
+        border-top: 1px solid #34495e;
+        margin-top: 2rem;
+        padding-top: 1rem;
+        text-align: center;
+    }

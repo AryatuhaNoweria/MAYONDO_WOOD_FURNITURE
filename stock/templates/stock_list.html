@@ -30,8 +30,8 @@
                             <td class="text-end">{{ item.product_price }}</td>
                             <td>{{ item.date_received|date:"Y-m-d" }}</td>
                             <td class="text-end">
-                                <a href="{% url 'edit_stock' item.id %}" class="btn btn-sm btn-outline-primary">Edit</a>
-                                <a href="{% url 'delete_stock' item.id %}" class="btn btn-sm btn-outline-danger ms-1">Delete</a>
+                                <a href="{% url 'edit_stock' item.pk %}" class="btn btn-sm btn-outline-primary">Edit</a>
+                                <a href="{% url 'delete_stock' item.pk %}" class="btn btn-sm btn-outline-danger ms-1">Delete</a>
                             </td>
                         </tr>
                         {% endfor %}

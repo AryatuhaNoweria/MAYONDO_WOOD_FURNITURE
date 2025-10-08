@@ -24,8 +24,8 @@
       <td>{{ sale.total_price }}</td>
       <td>
         <a href="{% url 'sale_detail' sale.pk %}" class="btn btn-info btn-sm">View</a>
-        <a href="" class="btn btn-warning btn-sm">Edit</a>
-        <a href="" class="btn btn-danger btn-sm">Delete</a>
+        <a href="{% url 'edit_sale' sale.pk %}" class="btn btn-warning btn-sm">Edit</a>
+        <a href="{% url 'delete_sale' sale.pk %}" class="btn btn-danger btn-sm">Delete</a>
       </td>
     </tr>
     {% empty %}
