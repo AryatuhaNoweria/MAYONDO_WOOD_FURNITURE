@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="container mt-5" style="max-width: 700px;">
+    <h2 class="mb-4">Record New Sale</h2>
+
+    <form method="POST" action="{% url 'record_sale' %}" novalidate>
+        {% csrf_token %}
+        {{ form | crispy }}
+
+        <div class="form-group mt-3">
+            <button type="submit" class="btn btn-primary">Submit Sale</button>
+        </div>
+    </form>
+</div>
+{% endblock %}

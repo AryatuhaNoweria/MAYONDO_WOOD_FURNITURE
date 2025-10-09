@@ -1,6 +1,7 @@
 from django import forms
 from .models import Sale, SaleItem
 class SaleForm(forms.ModelForm):
+    transport_included = forms.BooleanField(required=False, label="Include Transport (5% Fee)")
     class Meta:
         model = Sale
         fields = [
@@ -57,3 +58,5 @@ class SaleItemForm(forms.ModelForm):
             if subtotal != expected_subtotal:
                 raise forms.ValidationError(f"Subtotal should be {expected_subtotal}, but got {subtotal}.")
         return subtotal
+    
+

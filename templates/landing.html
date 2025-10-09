@@ -15,7 +15,7 @@
         align-items: center;
         justify-content: center;
         text-align: center;
-        background: url('{% static "images/landing-bg.jpg" %}') center/cover no-repeat fixed;
+        background: url('{% static 'images/photo1.jpg' %}') center/cover no-repeat fixed;
         color: #fff;
     }
     .landing-overlay {
@@ -36,14 +36,22 @@
         </div>
     </div>
 </div>
-
-<div class="container py-5">
-    <div class="row justify-content-center">
-        <div class="col-lg-10">
-            <img src="{% static 'images/landing-feature.jpg' %}" class="img-fluid rounded shadow" alt="Featured Mayondo furniture"/>
-        </div>
-    </div>
-    <div class="text-center text-muted small mt-3">Discover our latest handcrafted pieces</div>
 </div>
+
+<!-- Footer -->
+<footer class="footer mt-auto py-3 bg-dark text-light">
+  <div class="container text-center">
+    <marquee behavior="scroll" direction="left" scrollamount="5" class="mb-2">
+      🌲 Big Sale! Get 10% Off All Furniture This Week Only — Visit Mayondo Wood and Furniture Now! 🪵🛋️
+    </marquee>
+
+    <p class="mb-1">
+      &copy; {{ now|date:"Y" }} <strong>Mayondo Wood and Furniture Ltd</strong>. All Rights Reserved.
+    </p>
+    <p class="small mb-0">
+      Designed and Developed by <a href="#" class="text-success text-decoration-none">Aryatuha Noweria</a>
+    </p>
+  </div>
+</footer>
 
 {% endblock %}

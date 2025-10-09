@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container mt-4">
+  <h2>Receipt #{{ sale.receipt_number }}</h2>
+  <p><strong>Date:</strong> {{ sale.date }}</p>
+  <p><strong>Customer:</strong> {{ sale.customer.name }}</p>
+  <p><strong>Sales Agent:</strong> {{ sale.sales_agent.username }}</p>
+
+  <table class="table table-bordered mt-3">
+    <thead>
+      <tr>
+        <th>Product</th>
+        <th>Quantity</th>
+        <th>Unit Price</th>
+        <th>Subtotal</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for item in items %}
+      <tr>
+        <td>{{ item.product.name }}</td>
+        <td>{{ item.quantity }}</td>
+        <td>{{ item.unit_price }}</td>
+        <td>{{ item.subtotal }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <p><strong>Total:</strong> {{ sale.total_amount }}</p>
+  {% if sale.transport_included %}
+    <p><strong>Transport Fee (5%):</strong> {{ sale.transport_charge }}</p>
+  {% endif %}
+  <p><strong>Final Amount:</strong> {{ sale.final_amount_paid }}</p>
+
+  <button onclick="window.print()" class="btn btn-primary mt-3">Print Receipt</button>
+</div>
+{% endblock %}

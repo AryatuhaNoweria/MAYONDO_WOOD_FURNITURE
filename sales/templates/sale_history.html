@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2>My Sales History</h2>
+    <hr>
+
+    {% if sales %}
+        <table class="table table-striped mt-3">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Receipt Number</th>
+                    <th>Customer</th>
+                    <th>Date</th>
+                    <th>Total Amount (UGX)</th>
+                    <th>Payment Type</th>
+                    <th>Transport</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for sale in sales %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ sale.receipt_number }}</td>
+                    <td>{{ sale.customer.name }}</td>
+                    <td>{{ sale.date|date:"d M Y H:i" }}</td>
+                    <td>{{ sale.final_amount_paid }}</td>
+                    <td>{{ sale.payment_type|capfirst }}</td>
+                    <td>{% if sale.transport_included %}Yes{% else %}No{% endif %}</td>
+                    <td>
+                        <a href="{% url 'receipt' sale.id %}" class="btn btn-sm btn-primary">View Receipt</a>
+                        <a href="{% url 'download_receipt_pdf' sale.id %}" class="btn btn-sm btn-success">Download PDF</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>No sales recorded yet.</p>
+    {% endif %}
+</div>
+{% endblock %}

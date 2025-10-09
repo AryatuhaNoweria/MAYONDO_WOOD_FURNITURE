@@ -66,6 +66,27 @@
 
 <div class="sales-dashboard">
   <div class="container">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light rounded mb-4">
+      <div class="container-fluid">
+        <a class="navbar-brand fw-semibold" href="#">Sales Agent</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#salesAgentNav" aria-controls="salesAgentNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="salesAgentNav">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'record_sale' %}">Record Sale</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'sales_history' %}">Sales History</a>
+            </li>
+          </ul>
+          <div class="d-flex">
+            <a href="{% url 'logout' %}" class="btn btn-outline-danger">Logout</a>
+          </div>
+        </div>
+      </div>
+    </nav>
     <div class="sales-header">
       <h2>Welcome, {{ request.user.username }} (Sales Agent)</h2>
       <p>Manage and track all your sales efficiently.</p>
@@ -94,10 +115,10 @@
 
     <div class="row text-center">
       <div class="col-md-6 mb-3">
-        <a href="{% url 'add_sale' %}" class="btn btn-sales w-100 py-3">➕ Add New Sale</a>
+        <a href="{% url 'record_sale' %}" class="btn btn-sales w-100 py-3">➕ Record Sale</a>
       </div>
       <div class="col-md-6 mb-3">
-        <a href="{% url 'view_sales' %}" class="btn btn-sales w-100 py-3">📊 View Sales Records</a>
+        <a href="{% url 'sales_history' %}" class="btn btn-sales w-100 py-3">📊 Sales History</a>
       </div>
     </div>
 

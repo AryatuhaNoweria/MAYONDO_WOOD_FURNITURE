@@ -1,22 +1,17 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth.views import LoginView,LogoutView
 from django.contrib import messages
-from django.contrib.auth import authenticate, login, logout
-from django.db.models import Sum, Count
-from datetime import timedelta
+from django.contrib.auth import login, logout
+from django.db.models import Sum
 from django.utils import timezone
 from sales.models import Sale, SaleItem
-from stock.models import StockEntry
 from products.models import Product
 from customers.models import Customer
-#from django.contrib.auth.decorators import login_required
 from .forms import CustomUserCreationForm,Userloginform
-
-
 
 
 def landing_view(request):
     return render(request, 'landing.html')
+
 def register(request):
     if request.method == 'POST':
         form = CustomUserCreationForm(request.POST)
@@ -49,25 +44,21 @@ def login_view(request):
 
 def logout_view(request):
     logout(request)
+    messages.success(request, "You have been logged out successfully.")
     return redirect('login')
 
 
 def manager_dashboard(request):
     now = timezone.now()
     start_of_month = now.replace(day=1, hour=0, minute=0, second=0, microsecond=0)
-
     total_revenue = Sale.objects.filter(date__gte=start_of_month).aggregate(
         total=Sum('final_amount_paid')
     )['total'] or 0
-
     total_sales = Sale.objects.filter(date__gte=start_of_month).count()
     total_customers = Customer.objects.count()
     total_products = Product.objects.count()
-
     recent_sales = Sale.objects.select_related('customer').order_by('-date')[:5]
-
     low_stock = Product.objects.filter(current_stock__lte=5).order_by('current_stock')[:5]
-
     top_products = (
         SaleItem.objects.values('product__name')
         .annotate(quantity_sold=Sum('quantity'))
@@ -90,3 +81,4 @@ def attendant_dashboard(request):
 
 def sales_dashboard(request):
     return render(request, 'sales_dashboard.html')
+
