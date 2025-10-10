@@ -13,7 +13,9 @@
 </head>
 <body>
     <!-- Include the navigation bar -->
+     {% if not hide_navbar %}
     {% include 'includes/nav.html' %}
+    {% endif%}
 
     <!-- Page Content -->
     <div class="container mt-5 pt-4">

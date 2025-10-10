@@ -39,7 +39,7 @@ def login_view(request):
                     return redirect('attendant_dashboard')
     else:
         form = Userloginform()
-    context ={'form':form}
+    context ={'form':form ,'hide_navbar': True}
     return render(request,'login.html', context)
 
 def logout_view(request):
@@ -80,5 +80,5 @@ def attendant_dashboard(request):
     return render(request, 'attendant_dashboard.html')
 
 def sales_dashboard(request):
-    return render(request, 'sales_dashboard.html')
+    return render(request, 'sales_dashboard.html',{'hide_navbar': True})
 
