@@ -9,8 +9,8 @@ from customers.models import Customer
 from .forms import CustomUserCreationForm,Userloginform
 
 
-def landing_view(request):
-    return render(request, 'landing.html')
+def index_view(request):
+    return render(request, 'index.html')
 
 def register(request):
     if request.method == 'POST':

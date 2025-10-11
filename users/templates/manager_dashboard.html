@@ -9,8 +9,7 @@
       <div class="text-muted">Welcome, {{ user.username }}</div>
     </div>
     <div>
-      <a href="" class="btn btn-success">Record Sale</a>
-      <a href="" class="btn btn-outline-secondary">View Sales</a>
+      <a href= "{% url 'create_sale' %}" class="btn btn-success">Record Sale</a>
     </div>
   </div>
 
@@ -52,7 +51,9 @@
   <div class="row g-4">
     <div class="col-lg-6">
       <div class="card shadow-sm h-100">
-        <div class="card-header bg-white"><strong>Recent Sales</strong></div>
+        <div class="card-header bg-white"><strong>Recent Sales</strong>
+        
+  </div>
         <div class="card-body p-0">
           <div class="table-responsive">
             <table class="table table-sm align-middle mb-0">
@@ -134,4 +135,24 @@
     </div>
   </div>
 </div>
+<script>
+function printSalesReport() {
+  // Get the sales report section
+  const printContent = document.getElementById("sales-report").innerHTML;
+  const originalContent = document.body.innerHTML;
+
+  // Replace the page with only the report for printing
+  document.body.innerHTML = `
+    <h2 style="text-align:center;">Sales Report</h2>
+    ${printContent}
+  `;
+  
+  // Trigger the print dialog
+  window.print();
+
+  // Restore the original page after printing
+  document.body.innerHTML = originalContent;
+}
+</script>
+
 {% endblock %}
