@@ -14,14 +14,15 @@ class StockEntryForm(forms.ModelForm):
             'measurements',
         ]
         error_messages = {
-            'product': {'required': 'Product is required.'},
+            'product': {'required': 'please enter the Product .'},
             'supplier': {'required': 'please enter the supplier.'},
-            'cost_price': {'required': 'Cost price is required.'},
-            'product_price': {'required': 'Selling price is required.'},
+            'cost_price': {'required': 'please enter the Cost price .'},
+            'product_price': {'required': 'please enter the Selling price .'},
             'quantity': {
-                'required': 'Quantity is required.',
+                'required': ' please enter the quantity .',
                 'invalid': 'Enter a valid number.'
             },
+            'quality': {'required': 'please enter the quality'}
         }
 
     def clean_cost_price(self):
@@ -35,3 +36,11 @@ class StockEntryForm(forms.ModelForm):
         if product_price < 0:
             raise forms.ValidationError("The selling price can't be lower than 0")
         return product_price
+
+class StockQuantityUpdateForm(forms.ModelForm):
+    class Meta:
+        model = StockEntry
+        fields = ['quantity']
+        widgets = {
+            'quantity': forms.NumberInput(attrs={'class': 'form-control'}),
+        }

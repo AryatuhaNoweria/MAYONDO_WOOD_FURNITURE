@@ -7,20 +7,21 @@
     <table class="table table-striped">
         <thead>
             <tr>
-                <th>Name</th>
-                <th>Company</th>
-                <th>Phone</th>
-                <th>Email</th>
-                <th>Actions</th>
+                <th>name</th>
+                <th>company_name</th>
+                <th>phone</th>
+                <th>email</th>
+                <th>address</th>
             </tr>
         </thead>
         <tbody>
             {% for customer in customers %}
             <tr>
                 <td><a href="{% url 'customer_detail' customer.pk %}">{{ customer.name }}</a></td>
-                <td>{{ customer.company }}</td>
+                <td>{{ customer.company_name }}</td>
                 <td>{{ customer.phone }}</td>
                 <td>{{ customer.email }}</td>
+                <td>{{ customer.address }}</td>
                 <td>
                     <a href="{% url 'delete_customer' customer.pk %}" class="btn btn-sm btn-danger">Delete</a>
                     <a href="{% url 'customer_edit' customer.pk %}" class="btn btn-warning btn-sm">Edit</a>

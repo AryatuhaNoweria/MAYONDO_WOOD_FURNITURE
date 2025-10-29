@@ -1,8 +1,12 @@
 {% extends "base.html" %}
+{% load static %}
 {% load crispy_forms_tags %}
 
 {% block content %}
-<div class="container mt-5" style="max-width: 500px; height: 500PX;">
+<div class="vh-100 d-flex flex-column align-items-center justify-content-start text-white text-center pt-5" 
+     style="background-image: url('{% static "images/photo1.jpg" %}'); background-size: cover; background-position: center;">
+
+<div class="container mt-5" style="max-width: 300px; height: 300px;">
     <h2 class="mb-4">Login</h2>
 
     <form method="post" novalidate>

@@ -9,7 +9,7 @@
       <div class="text-muted">Welcome, {{ user.username }}</div>
     </div>
     <div>
-      <a href= "{% url 'create_sale' %}" class="btn btn-success">Record Sale</a>
+      <a href="{% url 'create_sale' %}" class="btn btn-success">Record Sale</a>
     </div>
   </div>
 
@@ -48,111 +48,127 @@
     </div>
   </div>
 
-  <div class="row g-4">
-    <div class="col-lg-6">
-      <div class="card shadow-sm h-100">
-        <div class="card-header bg-white"><strong>Recent Sales</strong>
-        
-  </div>
-        <div class="card-body p-0">
-          <div class="table-responsive">
-            <table class="table table-sm align-middle mb-0">
-              <thead class="table-light">
-                <tr>
-                  <th>Date</th>
-                  <th>Customer</th>
-                  <th>Total</th>
-                </tr>
-              </thead>
-              <tbody>
-                {% for s in recent_sales %}
-                <tr>
-                  <td>{{ s.date|date:"Y-m-d H:i" }}</td>
-                  <td>{{ s.customer.name }}</td>
-                  <td>{{ s.final_amount_paid }}</td>
-                </tr>
-                {% empty %}
-                <tr><td colspan="3" class="text-muted">No recent sales.</td></tr>
-                {% endfor %}
-              </tbody>
-            </table>
+  <div id="sales-report">
+    <div class="row g-4">
+      <div class="col-lg-6">
+        <div class="card shadow-sm h-100">
+          <div class="card-header bg-white"><strong>Recent Sales</strong></div>
+          <div class="card-body p-0">
+            <div class="table-responsive">
+              <table class="table table-sm align-middle mb-0">
+                <thead class="table-light">
+                  <tr>
+                    <th>Date</th>
+                    <th>Customer</th>
+                    <th>Total</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for s in recent_sales %}
+                  <tr>
+                    <td>{{ s.date|date:"Y-m-d H:i" }}</td>
+                    <td>{{ s.customer.name }}</td>
+                    <td>{{ s.total_amount_paid }}</td>
+                  </tr>
+                  {% empty %}
+                  <tr><td colspan="3" class="text-muted">No recent sales.</td></tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="card shadow-sm h-100">
+          <div class="card-header bg-white"><strong>Low Stock</strong></div>
+          <div class="card-body p-0">
+            <div class="table-responsive">
+              <table class="table table-sm align-middle mb-0">
+                <thead class="table-light">
+                  <tr>
+                    <th>Product</th>
+                    <th class="text-center">Stock</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for p in low_stock %}
+                  <tr>
+                    <td>{{ p.name }}</td>
+                    <td class="text-center">{{ p.current_stock }}</td>
+                  </tr>
+                  {% empty %}
+                  <tr><td colspan="2" class="text-muted">No low stock items.</td></tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
       </div>
     </div>
-    <div class="col-lg-6">
-      <div class="card shadow-sm h-100">
-        <div class="card-header bg-white"><strong>Low Stock</strong></div>
-        <div class="card-body p-0">
-          <div class="table-responsive">
-            <table class="table table-sm align-middle mb-0">
-              <thead class="table-light">
-                <tr>
-                  <th>Product</th>
-                  <th class="text-center">Stock</th>
-                </tr>
-              </thead>
-              <tbody>
-                {% for p in low_stock %}
-                <tr>
-                  <td>{{ p.name }}</td>
-                  <td class="text-center">{{ p.current_stock }}</td>
-                </tr>
-                {% empty %}
-                <tr><td colspan="2" class="text-muted">No low stock items.</td></tr>
-                {% endfor %}
-              </tbody>
-            </table>
-          </div>
+
+    <div class="card shadow-sm mt-4">
+      <div class="card-header bg-white"><strong>Top Products</strong></div>
+      <div class="card-body p-0">
+        <div class="table-responsive">
+          <table class="table table-sm align-middle mb-0">
+            <thead class="table-light">
+              <tr>
+                <th>Product</th>
+                <th class="text-end">Quantity Sold</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for tp in top_products %}
+              <tr>
+                <td>{{ tp.product__name }}</td>
+                <td class="text-end">{{ tp.quantity_sold }}</td>
+              </tr>
+              {% empty %}
+              <tr><td colspan="2" class="text-muted">No sales data yet.</td></tr>
+              {% endfor %}
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
   </div>
 
-  <div class="card shadow-sm mt-4">
-    <div class="card-header bg-white"><strong>Top Products</strong></div>
-    <div class="card-body p-0">
-      <div class="table-responsive">
-        <table class="table table-sm align-middle mb-0">
-          <thead class="table-light">
-            <tr>
-              <th>Product</th>
-              <th class="text-end">Quantity Sold</th>
-            </tr>
-          </thead>
-          <tbody>
-            {% for tp in top_products %}
-            <tr>
-              <td>{{ tp.product__name }}</td>
-              <td class="text-end">{{ tp.quantity_sold }}</td>
-            </tr>
-            {% empty %}
-            <tr><td colspan="2" class="text-muted">No sales data yet.</td></tr>
-            {% endfor %}
-          </tbody>
-        </table>
-      </div>
-    </div>
+  <div class="mt-3 text-end">
+    <button class="btn btn-primary" onclick="printSalesReport()">Print Sales Report</button>
   </div>
 </div>
+
 <script>
 function printSalesReport() {
-  // Get the sales report section
   const printContent = document.getElementById("sales-report").innerHTML;
   const originalContent = document.body.innerHTML;
 
-  // Replace the page with only the report for printing
   document.body.innerHTML = `
     <h2 style="text-align:center;">Sales Report</h2>
     ${printContent}
   `;
-  
-  // Trigger the print dialog
+
   window.print();
 
-  // Restore the original page after printing
   document.body.innerHTML = originalContent;
 }
 </script>
 
+<!-- Footer -->
+<footer class="footer mt-auto py-3 bg-dark text-light">
+  <div class="container text-center">
+    <marquee behavior="scroll" direction="left" scrollamount="5" class="mb-2">
+      🌲 Big Sale! Get 5% Off All Furniture This Week Only — Visit Mayondo Wood and Furniture Now! 
+    </marquee>
+
+    <p class="mb-1">
+      &copy; {{ now|date:"Y" }} <strong>Mayondo Wood and Furniture Ltd</strong>. All Rights Reserved.
+    </p>
+    <p class="small mb-0">
+      Designed and Developed by <a href="#" class="text-success text-decoration-none">Aryatuha Noweria</a>
+    </p>
+  </div>
+</footer>
 {% endblock %}

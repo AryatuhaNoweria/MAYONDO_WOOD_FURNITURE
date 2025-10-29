@@ -9,30 +9,24 @@
   </div>
 
   <form method="get" class="mb-4" novalidate>
-      {% crispy form %}
   </form>
 
 
   <table class="table table-bordered mt-4">
     <thead>
         <tr>
-            <th>Date Received</th>
-            <th>Product</th>
-            <th>Quantity</th>
-            <th>Cost Price</th>
-            <th>Selling Price</th>
-            <th>Supplier</th>
+            <th>generated_by</th>
+            <th>date_generated</th>
+            <th>notes</th>
+            
         </tr>
     </thead>
     <tbody>
         {% for stock in stocks %}
         <tr>
-            <td>{{ stock.date_received }}</td>
-            <td>{{ stock.product.name }}</td>
-            <td>{{ stock.quantity }}</td>
-            <td>{{ stock.cost_price }}</td>
-            <td>{{ stock.product_price }}</td>
-            <td>{{ stock.supplier.name }}</td>
+            <td>{{ stock.generated_by }}</td>
+            <td>{{ stock.date_generated }}</td>
+            <td>{{ stock.notes }}</td>
         </tr>
         {% endfor %}
     </tbody>

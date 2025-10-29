@@ -1,62 +1,43 @@
 from django import forms
-from .models import Sale, SaleItem
+from .models import Sale
+
 class SaleForm(forms.ModelForm):
     transport_included = forms.BooleanField(required=False, label="Include Transport (5% Fee)")
     class Meta:
         model = Sale
         fields = [
             'customer',
+            'product',
+            'quantity',
+            'unit_price',
             'sales_agent',
-            'total_amount',
             'transport_included',
             'transport_charge',
             'payment_type',
-            'final_amount_paid',
-            'receipt_number',
+            'total_amount_paid',
+            'receipt_number'
         ]
         error_messages = {
-            'customer': {
-                'required': "Please enter the customer's name.",
-                'max_length': "Customer name is too long.",
-            },
-            'total_amount': {
-                'required': "Please enter the total amount.",
-            },
-            'payment_type': {
-                'required': "Please select a payment type.",
-            },
-            'sales_agent': {
-                'required': "Please select the sales agent.",
-            },
-        }
-    def clean(self):
-        cleaned_data = super().clean()
-        total = cleaned_data.get("total_amount")
-        final_paid = cleaned_data.get("final_amount_paid")
-        if total is not None and final_paid is not None:
-            if final_paid > total:
-                raise forms.ValidationError("Final amount paid cannot exceed total amount.")
-            return cleaned_data   
-        
-class SaleItemForm(forms.ModelForm):
-    class Meta:
-        model = SaleItem
-        fields = ['product', 'quantity', 'unit_price', 'subtotal']
-        error_messages ={
-            "product":{"required":"please enter the product"},
-            "quantity":{"required":"please enter the quantity"},
-            "unit_price":{"required":"please enter the unit_price"},
-            "subtotal":{"required":"please enter the subtotal"}
-        }
+            'customer': {'required': "Please enter the customer's name.",
+                'max_length': "Customer name is too long."},
+            'product':{"required":"please enter the product"},
+            'unit_price': {'required': "Please enter the unit_price."},
+            'total_amount_paid':{"required":"please enter the total_amount_paid"},
+            'payment_type': {'required': "Please select a payment type."},
+            'sales_agent': {'required': "Please select the sales agent."},
+            'receipt_number' :{"required":"please enter the receipt_number"}
+             
 
-    def clean_subtotal(self):
-        quantity = self.cleaned_data.get('quantity')
-        unit_price = self.cleaned_data.get('unit_price')
-        subtotal = self.cleaned_data.get('subtotal')
-        if quantity is not None and unit_price is not None and subtotal is not None:
-            expected_subtotal = quantity * unit_price
-            if subtotal != expected_subtotal:
-                raise forms.ValidationError(f"Subtotal should be {expected_subtotal}, but got {subtotal}.")
-        return subtotal
+        }
+    def clean_unit_price(self):
+        unit_price= self.cleaned_data['unit_price']
+        if unit_price < 0:
+            raise forms.ValidationError("unit_price can not be less than 0")
+        return unit_price   
     
 
+    def clean_total_amount_paid(self):
+        total_amount_paid= self.cleaned_data['total_amount_paid']
+        if total_amount_paid < 0:
+            raise forms.ValidationError("total_amount_paid can not be less than 0")
+        return total_amount_paid

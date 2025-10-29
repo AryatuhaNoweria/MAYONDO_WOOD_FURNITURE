@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
-from .models import StockEntry
+from .models import StockEntry, StockUpdate
 from .forms import StockEntryForm
 
 def stock_list(request):
@@ -37,3 +37,32 @@ def delete_stock(request, pk):
         messages.success(request, 'Stock deleted successfully!')
         return redirect('stock_list')
     return render(request, 'stock_confirm_delete.html', {'stock': stock})
+
+def update_stock(request, stock_id):
+    stock_entry = get_object_or_404(StockEntry, pk=stock_id)
+    old_quantity = stock_entry.quantity
+
+    if request.method == 'POST':
+        form = StockQuantityUpdateForm(request.POST, instance=stock_entry)
+        if form.is_valid():
+            updated_entry = form.save(commit=False)
+            new_quantity = updated_entry.quantity
+
+            # Only log the change if quantity has changed
+            if new_quantity != old_quantity:
+                updated_entry.save()
+
+                # Create StockUpdate record
+                StockUpdate.objects.create(
+                    product=stock_entry.product,
+                    old_quantity=old_quantity,
+                    new_quantity=new_quantity,
+                    change_reason=request.POST.get('change_reason', 'Updated by user'),
+                    updated_by=request.user,
+                )
+
+                return redirect('view_stock')  # Or wherever you list stock
+    else:
+        form = StockQuantityUpdateForm(instance=stock_entry)
+
+    return render(request, 'update_stock.html', {'form': form, 'stock_entry': stock_entry})

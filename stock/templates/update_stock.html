@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% load crispy_form_tags %}
+{% block content %}
+<div class="container mt-5">
+  <h3>Update Stock for {{ stock_entry.product.name }}</h3>
+  
+  <form method="POST">
+    {% csrf_token %}
+    {{ form  | crispy}}
+    
+    <div class="mb-3">
+      <label for="change_reason" class="form-label">Reason for Update</label>
+      <input type="text" name="change_reason" id="change_reason" class="form-control" required>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Update Stock</button>
+  </form>
+</div>
+{% endblock %}

@@ -11,19 +11,30 @@
         <th>Customer</th>
         <th>Product</th>
         <th>Quantity</th>
-        <th>Date</th>
-        <th>Total Price</th>
-        <th>Actions</th>
-      </tr>
+        <th>Unit_price</th>
+        <th>sales_agent</th>
+        <th>tranport_icluded</th>
+        <th>transport_charge</th>
+        <th>payment_type</th>
+        <th>total_amount_paid</th>
+        <th>sale.receipt_number</th>
+        <th>date</th>
+        </tr>
     </thead>
     <tbody>
       {% for sale in sales %}
       <tr>
-        <td>{{ sale.customer_name }}</td>
-        <td>{{ sale.product.name }}</td>
+        <td>{{ sale.customer }}</td>
+        <td>{{ sale.product }}</td>
         <td>{{ sale.quantity }}</td>
+        <td>{{ sale.unit_price }}</td>
+        <td>{{ sale.sales_agent }}</td>
+        <td>{{ sale.transport_included }}</td>
+        <td>{{ sale.transport_charge }}</td>
+        <td>{{ sale.payment_type }}</td>
+        <td>{{ sale.total_amount_paid}}</td>
+        <td>{{ sale.receipt_number}}</td>
         <td>{{ sale.date }}</td>
-        <td>{{ sale.total_price }}</td>
         <td>
           <a href="{% url 'sale_detail' sale.pk %}" class="btn btn-info btn-sm">View</a>
           <a href="{% url 'edit_sale' sale.pk %}" class="btn btn-warning btn-sm">Edit</a>
